@@ -1,53 +1,65 @@
-"use client"
+"use client";
 import React from "react";
 import Nav from "../ui/nav";
 import { motion } from "framer-motion";
-import {useState} from "react";
+import { useState } from "react";
 export default function Contacts() {
-  const [formData, setformData]=useState({
-    email:"",
-    name:"",
-    services:"",
-    budget:"",
-    timeline:"",
-    details:""
-  })
+  const [formData, setformData] = useState({
+    email: "",
+    name: "",
+    services: "",
+    budget: "",
+    timeline: "",
+    details: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<
     "idle" | "success" | "error"
   >("idle");
-  
+
   // For inputs, selects and textareas
   const handleChange = (
-      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
   ) => {
-      const { name, value } = e.target as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
-      setformData((prev) => ({ ...prev, [name]: value }));
-    };
+    const { name, value } = e.target as
+      | HTMLInputElement
+      | HTMLTextAreaElement
+      | HTMLSelectElement;
+    setformData((prev) => ({ ...prev, [name]: value }));
+  };
 
-const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus("idle");
 
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      if (!res.ok) throw new Error('Failed to send message');
+      if (!res.ok) throw new Error("Failed to send message");
 
-      setSubmitStatus('success');
-      setformData({ email: '', name: '', services: '', budget: '', timeline: '', details: '' });
+      setSubmitStatus("success");
+      setformData({
+        email: "",
+        name: "",
+        services: "",
+        budget: "",
+        timeline: "",
+        details: "",
+      });
     } catch (err) {
       console.error(err);
-      setSubmitStatus('error');
+      setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
     }
-}
+  };
 
   const fadeUp = {
     hidden: { opacity: 0, y: 10 },
@@ -57,7 +69,13 @@ const handleSubmit = async (e: React.FormEvent) => {
     <>
       <section className="min-h-[60vh] flex items-center justify-center pt-24 bg-[#edf7f6]">
         <Nav />
-        <motion.div className="flex flex-col items-center justify-center px-6 text-center p-8" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.3 }}>
+        <motion.div
+          className="flex flex-col items-center justify-center px-6 text-center p-8"
+          variants={fadeUp}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <h1 className="text-5xl font-bold mb-2">Get In Touch</h1>
           <p className=" max-w-md text-xl">
             Ready to start your project? Let&apos;s discuss your requirements
@@ -67,9 +85,15 @@ const handleSubmit = async (e: React.FormEvent) => {
       </section>
 
       <section className="min-h-screen flex justify-center items-center py-12 px-6 bg-[#edf7f6]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-5xl">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-5xl">
           {/* Left - Form */}
-          <motion.div className="rounded-2xl border p-6 bg-white shadow-sm" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+          <motion.div
+            className="rounded-2xl border p-6 bg-white shadow-sm"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             <h1 className="text-2xl font-bold mb-4">Book A Consultation</h1>
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
               {/* Email */}
@@ -85,6 +109,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   className="border rounded px-3 py-2"
                   onChange={handleChange}
                   value={formData.email}
+                  required
                 />
               </div>
 
@@ -101,6 +126,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   className="border rounded px-3 py-2"
                   onChange={handleChange}
                   value={formData.name}
+                  required
                 />
               </div>
 
@@ -115,6 +141,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   className="border rounded px-3 py-2"
                   onChange={handleChange}
                   value={formData.services}
+                  required
                 >
                   <option value="">Select a service</option>
                   <option value="software">Software Development</option>
@@ -135,6 +162,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                     className="border rounded px-3 py-2"
                     onChange={handleChange}
                     value={formData.budget}
+                    required
                   >
                     <option value="">Select budget</option>
                     <option value="500-1000">$500 - $1,000</option>
@@ -152,6 +180,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                     className="border rounded px-3 py-2"
                     onChange={handleChange}
                     value={formData.timeline}
+                    required
                   >
                     <option value="">Select timeline</option>
                     <option value="1month">1 Month</option>
@@ -174,20 +203,50 @@ const handleSubmit = async (e: React.FormEvent) => {
                   className="border rounded px-3 py-2"
                   onChange={handleChange}
                   value={formData.details}
+                  required
                 />
               </div>
 
               {/* Submit */}
-              <button disabled={isSubmitting} className="border rounded py-2 font-semibold hover:bg-[#7c9885] hover:text-white transition disabled:opacity-60">
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+              {/* Submit */}
+              <button
+                disabled={isSubmitting}
+                className="border rounded py-2 font-semibold hover:bg-[#7c9885] hover:text-white transition disabled:opacity-60"
+              >
+                {isSubmitting ? (
+                  <span className="flex items-center justify-center">
+                    Sending
+                    <span className="loading-dots">
+                      <span>.</span>
+                      <span>.</span>
+                      <span>.</span>
+                    </span>
+                  </span>
+                ) : (
+                  "Send Message"
+                )}
               </button>
-              {submitStatus === 'success' && <p className="text-sm text-green-600">Message sent. I will reach out to you shortly.</p>}
-              {submitStatus === 'error' && <p className="text-sm text-red-600">Failed to send message. Please try again later.</p>}
+              {submitStatus === "success" && (
+                <p className="text-sm text-green-600">
+                  Message sent. I will reach out to you shortly.
+                </p>
+              )}
+              {submitStatus === "error" && (
+                <p className="text-sm text-red-600">
+                  Failed to send message. Please try again later.
+                </p>
+              )}
             </form>
           </motion.div>
 
           {/* Right - Contact Info */}
-          <motion.div className="rounded-2xl border p-6 bg-white shadow-sm" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+          <motion.div
+            className="rounded-2xl border p-6 bg-white shadow-sm"
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
             <h1 className="text-2xl font-bold mb-4">Contact Information</h1>
             <p className="text-sm mb-6">
               I&apos;m always excited to discuss new projects and opportunities.
@@ -199,6 +258,17 @@ const handleSubmit = async (e: React.FormEvent) => {
               <div className="border-b pb-2">
                 <h2 className="font-semibold">Email</h2>
                 <span>ogress638@gmail.com</span>
+              </div>
+              <div className="border-b pb-2">
+                <h2 className="font-semibold">LinkedIn</h2>
+                <a
+                  href="https://www.linkedin.com/in/francis-ogres?utm_source=share_via&utm_content=profile&utm_medium=member_android"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-600 hover:text-blue-800 hover:underline break-all"
+                >
+                  https://www.linkedin.com/in/francis-ogres
+                </a>
               </div>
               <div className="border-b pb-2">
                 <h2 className="font-semibold">Phone</h2>
@@ -229,7 +299,13 @@ const handleSubmit = async (e: React.FormEvent) => {
           <h1 className="text-2xl font-bold">Frequently Asked Questions</h1>
 
           <div className="flex flex-col gap-4 w-full">
-            <motion.div className="border rounded-lg p-4 bg-white shadow-sm" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+            <motion.div
+              className="border rounded-lg p-4 bg-white shadow-sm"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               <h3 className="text-lg font-semibold">
                 How long does a typical project take?
               </h3>
@@ -240,7 +316,13 @@ const handleSubmit = async (e: React.FormEvent) => {
               </p>
             </motion.div>
 
-            <motion.div className="border rounded-lg p-4 bg-white shadow-sm" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+            <motion.div
+              className="border rounded-lg p-4 bg-white shadow-sm"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               <h3 className="text-lg font-semibold">
                 Do you provide ongoing support?
               </h3>
@@ -251,7 +333,13 @@ const handleSubmit = async (e: React.FormEvent) => {
               </p>
             </motion.div>
 
-            <motion.div className="border rounded-lg p-4 bg-white shadow-sm" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+            <motion.div
+              className="border rounded-lg p-4 bg-white shadow-sm"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               <h3 className="text-lg font-semibold">
                 Can you work with my existing development team?
               </h3>
@@ -262,7 +350,13 @@ const handleSubmit = async (e: React.FormEvent) => {
               </p>
             </motion.div>
 
-            <motion.div className="border rounded-lg p-4 bg-white shadow-sm" variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, amount: 0.2 }}>
+            <motion.div
+              className="border rounded-lg p-4 bg-white shadow-sm"
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               <h3 className="text-lg font-semibold">
                 What industries do you specialize in?
               </h3>
@@ -278,4 +372,3 @@ const handleSubmit = async (e: React.FormEvent) => {
     </>
   );
 }
-                

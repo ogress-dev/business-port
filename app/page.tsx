@@ -1,15 +1,14 @@
-import React from "react";
 // import Nav from "./ui/nav";
-// import Home from "./home/page";
+import Home from "./home/page";
 // import About from "./about/page";
-import Contacts from "./contacts/page";
+// import Contacts from "./contacts/page";
 export default function Page(){
   return(
     <>
-    {/* <Nav/>
+    {/* <Nav/> */}
     <Home/>
-    <About/> */}
-    <Contacts/>
+    {/* <About/> */}
+    {/* <Contacts/> */}
     </>
   );
 }

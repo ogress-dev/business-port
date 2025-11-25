@@ -7,8 +7,14 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Nav() {
   const [isOpen, setIsOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const menuRef = useRef<HTMLDivElement | null>(null);
+
+  // Ensure component only renders active states on client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Close when clicking outside
   useEffect(() => {
@@ -42,7 +48,10 @@ export default function Nav() {
       {/* Brand */}
       <div className="flex items-center">
         <Link href="/home" className="font-bold text-2xl">
-          OGRES MURATHIMI
+          CURRENCI
+          <span className="block text-xs font-normal text-gray-500">
+            Continuous Integration
+          </span>
         </Link>
       </div>
 
@@ -52,7 +61,9 @@ export default function Nav() {
           <Link
             key={link.href}
             href={link.href}
-            className={isActive(link.href) ? activeStyles : inactiveStyles}
+            className={
+              mounted && isActive(link.href) ? activeStyles : inactiveStyles
+            }
           >
             {link.label}
           </Link>
@@ -90,7 +101,9 @@ export default function Nav() {
               >
                 <Link
                   href={link.href}
-                  className={isActive(link.href) ? activeStyles : inactiveStyles}
+                  className={
+                    mounted && isActive(link.href) ? activeStyles : inactiveStyles
+                  }
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}

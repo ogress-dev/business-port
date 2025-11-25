@@ -45,7 +45,7 @@ export default function About() {
 
           {/* Right Image */}
           <motion.div className="flex justify-center items-center" variants={fadeUp}>
-            <Image src="/samba.jpg" alt="Profile Picture" width={300} height={300} className="rounded-2xl shadow-lg object-cover" />
+            <Image src="/him.jpeg" alt="Profile Picture" width={300} height={300} className="rounded-2xl shadow-lg object-cover" />
           </motion.div>
         </div>
       </section>

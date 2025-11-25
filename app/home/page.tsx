@@ -34,6 +34,9 @@ export default function Home() {
           >
             OGRES MURATHIMI
           </motion.h1>
+          <span className="block text-xs font-normal text-gray-500">
+            Founder and CEO: Currenci Technologies
+          </span>
           <motion.span
             className="text-lg md:text-xl font-medium tracking-wide"
             variants={fadeUp}
@@ -67,15 +70,15 @@ export default function Home() {
 
       {/* About Section */}
       <motion.section
-        className="py-20 px-10 bg-[#edf7f6]"
+        className="py-20 px-10 bg-[#edf7f6] items-center justify-center"
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, amount: 0.2 }}
         variants={stagger}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-6xl w-full items-center justify-center">
           <motion.div
-            className="flex flex-col justify-center space-y-6"
+            className="flex flex-col items-center justify-center space-y-6"
             variants={fadeUp}
           >
             <h1 className="font-bold text-2xl md:text-3xl  leading-snug">
@@ -95,7 +98,7 @@ export default function Home() {
             </Link>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 ">
             <motion.div
               className="flex flex-col items-start p-6 rounded-xl border hover:shadow-md transition bg-white shadow-sm"
               variants={fadeUp}
