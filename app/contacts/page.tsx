@@ -257,7 +257,7 @@ export default function Contacts() {
             <div className="space-y-3">
               <div className="border-b pb-2">
                 <h2 className="font-semibold">Email</h2>
-                <span>ogress638@gmail.com</span>
+                <span>ogresmurathimi@gmail.com</span>
               </div>
               <div className="border-b pb-2">
                 <h2 className="font-semibold">LinkedIn</h2>

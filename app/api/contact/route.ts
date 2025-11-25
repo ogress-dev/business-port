@@ -59,7 +59,7 @@ export async function POST(req: Request) {
 
     const transporter = await createTransport();
 
-    const to = 'ogress638@gmail.com';
+    const to = 'ogresmurathimi@gmail.com';
 
     const html = `
       <p>You have a new contact form submission:</p>
